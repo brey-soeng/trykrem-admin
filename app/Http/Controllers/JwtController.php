@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class JwtController extends Controller
 {
+
+    use AuthenticatesUsers;
     /**
      * Create a new AuthController instance.
      *
      * @return void
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register','refresh']]);
     }
 
     /**
@@ -24,9 +27,17 @@ class JwtController extends Controller
      * @throws \Illuminate\Validation\ValidationException
      */
     public function login(Request $request){
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
+            'captcha' => 'required|captcha_api:'.request('key').',math',
+        ],
+        [
+            'email' => 'Username is required!',
+            'password' => 'Password is required!',
+            'captcha.required' => 'Verification is required!',
+            'captcha.captcha_api' => 'Verification is not match, please try again!'
         ]);
 
         if ($validator->fails()) {
@@ -37,7 +48,7 @@ class JwtController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return $this->createNewToken($token);
+        return $this->respondWithToken($token);
     }
 
     /**
@@ -82,7 +93,7 @@ class JwtController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function refresh() {
-        return $this->createNewToken(auth()->refresh());
+        return $this->respondWithToken(auth()->refresh());
     }
 
     /**
@@ -96,7 +107,8 @@ class JwtController extends Controller
      * @param string $token
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function createNewToken($token){
+    protected function respondWithToken($token)
+    {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
