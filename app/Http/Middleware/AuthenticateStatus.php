@@ -10,18 +10,8 @@ use Illuminate\Contracts\Auth\Factory as Auth;
 class AuthenticateStatus
 {
 
-    /**
-     * The authentication factory instance.
-     *
-     * @var \Illuminate\Contracts\Auth\Factory
-     */
     protected $auth;
-    /**
-     * Create a new middleware instance.
-     *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
-     * @return void
-     */
+
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;

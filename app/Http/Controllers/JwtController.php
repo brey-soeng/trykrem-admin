@@ -28,27 +28,27 @@ class JwtController extends Controller
      */
     public function login(Request $request){
 
-//        $validator = Validator::make($request->all(), [
-//            'email' => 'required|email',
-//            'password' => 'required|string|min:6',
-//            'captcha' => 'required|captcha_api:'.request('key').',math',
-//        ],
-//        [
-//            'email' => 'Username is required!',
-//            'password' => 'Password is required!',
-//            'captcha.required' => 'Verification is required!',
-//            'captcha.captcha_api' => 'Verification is not match, please try again!'
-//        ]);
-//
-//        if ($validator->fails()) {
-//            return response()->json($validator->errors(), 422);
-//        }
-//
-//        if (! $token = auth()->attempt($validator->validated())) {
-//            return response()->json(['error' => 'Unauthorized'], 401);
-//        }
-//
-//        return $this->respondWithToken($token);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+            'captcha' => 'required|captcha_api:'.request('key').',math',
+        ],
+        [
+            'email' => 'Username is required!',
+            'password' => 'Password is required!',
+            'captcha.required' => 'Verification is required!',
+            'captcha.captcha_api' => 'Verification is not match, please try again!'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        if (! $token = auth()->attempt($validator->validated())) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
     /**

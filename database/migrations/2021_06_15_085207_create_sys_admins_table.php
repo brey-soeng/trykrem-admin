@@ -16,20 +16,12 @@ class CreateSysAdminsTable extends Migration
         Schema::create('sys_admins', function (Blueprint $table) {
             $table->increments('id');
             $table->string('username',64)->unique();
-            $table->string('email',64)->unique();
-            $table->string('phone',64)->unique();
-            $table->string('nickname',64)->nullable();
-            $table->string('avatar')->nullable();
-            $table->integer('create_user')->comment('Creator id');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->tinyInteger('status')->default(1)->comment('State 1: Normal 0: Prohibited');
-            $table->string('password',64);
-            $table->string('api_token', 64)->unique()->nullable();
-            $table->integer('token_expire_time')->default(0);
             $table->rememberToken();
-            $table->timestamp('last_login_time')->comment('Last Login Time')->nullable();
-            $table->string('last_login_ip')->nullable();
             $table->timestamps();
-
         });
     }
 

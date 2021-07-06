@@ -47,12 +47,6 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-
-        'admin' => [
-            'driver' => 'jwt',
-            'provider' => 'admins',
-            'hash' => false,
-        ],
     ],
 
     /*
@@ -75,17 +69,13 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\SysAdmin::class,
         ],
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\SysAdmin::class,
-        ],
     ],
 
     /*
@@ -106,12 +96,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-        'admins' => [
-            'provider' => 'admins',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

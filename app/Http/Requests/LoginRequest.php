@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 
-
 class LoginRequest extends FormRequest
 {
     /**
@@ -25,10 +24,10 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
-       return [
-           'username' => ['required','string','between:2,60'],
-           'password' => ['required', 'string', 'min:6'],
-       ];
+        return [
+            'username' => ['required','string','between:2,60'],
+            'password' => ['required', 'string', 'min:6']
+        ];
     }
 
     /**
@@ -39,7 +38,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'username' => __('validation.attributes.username'),
-            'password' => __('validation.attributes.password'),
+            'password' =>  __('validation.attributes.password'),
         ];
     }
 
