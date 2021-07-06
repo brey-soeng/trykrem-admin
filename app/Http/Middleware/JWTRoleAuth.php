@@ -13,7 +13,7 @@ class JWTRoleAuth extends BaseMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \Closure $next
      * @param null $role
      * @return mixed

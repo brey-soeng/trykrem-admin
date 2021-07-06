@@ -18,10 +18,11 @@ class CreateAddMenuToPermissionsTable extends Migration
             $table->bigInteger('pid')->after('id')->default(0);
             $table->string('title')->after('name');
             $table->string('icon')->after('title')->nullable();
-            $table->string('path')->after('icon')->nullable()->comment('path');
-            $table->string('component')->after('path')->nullable()->comment('vue component path');
-            $table->bigInteger('sort')->after('component')->default(1)->comment('sort');
-            $table->tinyInteger('hidden')->after('sort')->default(1)->comment('hidden 0=false|show 1=true|hide');
+            $table->string('path')->after('icon')->nullable()->comment('Access path');
+            $table->string('component')->after('path')->nullable()->comment('vue Corresponding component address');
+            $table->bigInteger('sort')->after('component')->default(1)->comment('Sort');
+            $table->tinyInteger('hidden')->after('sort')->default(1)->comment('Whether to hide 0=false|not hide 1=true|hide');
+
         });
     }
 
